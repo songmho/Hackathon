@@ -8,4 +8,5 @@
 
 .idea
 gradle
+/app/app-release.apk
 Hackathon.iml

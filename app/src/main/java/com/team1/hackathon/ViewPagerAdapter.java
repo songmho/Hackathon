@@ -9,13 +9,15 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  */
 public class ViewPagerAdapter extends FragmentStatePagerAdapter{
 
-    Fragment[] fragments=new Fragment[2];
+    Fragment[] fragments=new Fragment[3];
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        fragments[0]=new MentorFragment();
+        fragments[0]=new Team_fragment();
 
-        fragments[1]=new MentoringFragment();
+        fragments[1]=new MentorFragment();
+
+        fragments[2]=new MentoringFragment();
     }
 
     @Override
@@ -32,8 +34,10 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "멘토 추가";
+                return "팀 승인";
             case 1:
+                return "멘토 추가";
+            case 2:
                 return "멘토링 추가";
         }
         return null;

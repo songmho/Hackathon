@@ -30,7 +30,7 @@ public class MentorFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        FrameLayout cur_container=(FrameLayout)inflater.inflate(R.layout.fragment_metoring,container,false);
+        FrameLayout cur_container=(FrameLayout)inflater.inflate(R.layout.fragment_mentor,container,false);
 
         mentor = (EditText)cur_container.findViewById(R.id.mentor);
         feild = (EditText)cur_container.findViewById(R.id.feild);

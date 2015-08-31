@@ -13,11 +13,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
-        fragments[0]=new Team_fragment();
-
-        fragments[1]=new MentorFragment();
-
-        fragments[2]=new MentoringFragment();
     }
 
     @Override

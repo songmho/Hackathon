@@ -13,6 +13,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
+        fragments[0]=new ListFragment();
+        fragments[1]=new ListFragment();
+        fragments[2]=new ListFragment();
     }
 
     @Override
@@ -29,11 +32,11 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "팀 승인";
+                return "기획자";
             case 1:
-                return "멘토 추가";
+                return "개발자";
             case 2:
-                return "멘토링 추가";
+                return "디자이너";
         }
         return null;
     }

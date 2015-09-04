@@ -10,12 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+
 /**
  * Created by songmho on 15. 9. 1.
  */
 public class ListFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
+    ArrayList<Member_item> member_items=new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +31,17 @@ public class ListFragment extends Fragment {
         LinearLayout cur_container=(LinearLayout)inflater.inflate(R.layout.fragment_list,container,false);
 
         recyclerView=(RecyclerView)cur_container.findViewById(R.id.recyclerview);
-
+        Bundle bundle=this.getArguments();
+        switch (bundle.getInt("activity")){
+            case 0:
+                Member_item member_item=new Member_item("","");
+                member_items.add(member_item);
+                recyclerView.setAdapter(new RecyclerAdapter(getActivity(),member_items,R.layout.item_member));
+                break;
+            case 1:
+                break;
+        }
+     //   recyclerView.setAdapter();
         layoutManager=new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);

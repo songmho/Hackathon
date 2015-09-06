@@ -6,20 +6,20 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/time"
-            android:title="시간설정"/>
+            android:title="시간 설정"/>
         <item
             android:id="@+id/team"
             android:title="팀 관리"/>
         <item
             android:id="@+id/member"
-            android:title="참가자관리"/>
+            android:title="참가자 관리"/>
     </group>
     <group
         android:id="@+id/group_mentoring"
         android:checkableBehavior="single">
         <item
             android:id="@+id/mentoring"
-            android:title="멘토링추가"/>
+            android:title="멘토링 추가"/>
     </group>
     <group
         android:id="@+id/group_setting"

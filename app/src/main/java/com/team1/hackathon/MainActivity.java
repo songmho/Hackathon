@@ -12,6 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     DrawerLayout drawerLayout;
     Toolbar toolbar;
@@ -51,6 +58,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         time.setOnClickListener(this);
         team.setOnClickListener(this);
         member.setOnClickListener(this);
+
+
+        ParseQuery<ParseObject> query=ParseQuery.getQuery("admin");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+
+            }
+        });
     }
 
     private boolean selectDrawerItem(MenuItem menuItem) {

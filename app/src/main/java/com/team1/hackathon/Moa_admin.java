@@ -9,8 +9,8 @@ import com.parse.ParseACL;
  * Created by songmho on 15. 8. 22.
  */
 public class Moa_admin extends Application {
-    String APPLICATION_ID="1meD1nBM07SCIDJ5cGdIWLXT4ASzvtF4QFprTbuD";
-    String CLIENT_KEY="tLtCFKlQ4SZKmCwOgrkUdAhmkZvCyLe7h5tCvl7E";
+    String APPLICATION_ID="QhNYKsnuxfRGUBqPE3wc8rzawO7c7ZcooEYmOlul";
+    String CLIENT_KEY="cZEeKJw9XfZBlfrsHnAUg2tT9IYTGCRGVUNfsT9U";
 
     @Override
     public void onCreate() {

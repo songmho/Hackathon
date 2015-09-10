@@ -3,10 +3,12 @@ package com.team1.hackathon;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.Parse;
@@ -88,6 +90,41 @@ public class TimeActivity extends AppCompatActivity {
                         title.setText(radio_5.getHint());
                         break;
                 }
+            }
+        });
+
+        button_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseQuery<ParseObject> query=ParseQuery.getQuery("Admin");
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> list, ParseException e) {
+
+                        switch (radio_group.getCheckedRadioButtonId()){
+                            case R.id.radio_1:
+                                list.get(0).put("title",radio_1.getHint());
+                                break;
+                            case R.id.radio_2:
+                                list.get(0).put("title", radio_2.getHint());
+                                break;
+                            case R.id.radio_3:
+
+                                list.get(0).put("title", radio_3.getHint());
+                                break;
+                            case R.id.radio_4:
+
+                                list.get(0).put("title", radio_4.getHint());
+                                break;
+                            case R.id.radio_5:
+
+                                list.get(0).put("title", radio_5.getHint());
+                                break;
+                        }
+                        list.get(0).saveInBackground();
+                        Toast.makeText(getApplicationContext(),"시간이 변경되었습니다.",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }

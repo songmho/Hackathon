@@ -50,15 +50,15 @@ public class TeamActivity extends AppCompatActivity {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
                 for (ParseObject p : list) {
+                    final String[] n = {"\n"};
                     ParseRelation<ParseUser> relation = p.getRelation("member");
                     ParseQuery<ParseUser> q = relation.getQuery();
                     q.findInBackground(new FindCallback<ParseUser>() {
-                        String n="\n";
                         @Override
                         public void done(List<ParseUser> list, ParseException e) {
                             for (ParseUser p1 : list)
-                                n=n+p1.getString("name")+"\n";
-                            name=new String(n);
+                                n[0] = n[0] +p1.getString("name")+"\n";
+                            name=new String(n[0]);
                         }
                     });
 

@@ -42,6 +42,7 @@ public class MemberActivity extends AppCompatActivity {
 
 
         ParseQuery<ParseUser> user=ParseUser.getQuery();
+        user.whereNotEqualTo("job","mentor");
         user.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> list, ParseException e) {

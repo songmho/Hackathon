@@ -29,6 +29,6 @@
             android:layout_marginBottom="12dp"
             android:textSize="20dp"
             android:textColor="#FFFFFF"
-            android:text="null" />
+            android:text="" />
     </LinearLayout>
 </FrameLayout>

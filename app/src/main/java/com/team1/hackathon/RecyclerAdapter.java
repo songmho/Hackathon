@@ -1,6 +1,7 @@
 package com.team1.hackathon;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -36,6 +37,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.team_items=team_items;
         this.layout=layout;
     }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -74,13 +76,23 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             });
         }
         else if(layout==R.layout.item_team && holder instanceof team){
-            Team_item item=team_items.get(position);
+            final Team_item item=team_items.get(position);
             ((team) holder).member.setText(item.getName());
+            if(item.isMade())
+                ((team)holder).text.setVisibility(View.VISIBLE);
+            else
+                ((team)holder).text.setVisibility(View.GONE);
+
             Log.d("ddddddd",item.getName());
             ((team) holder).cardview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                Toast.makeText(context,"dddddd",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context.getApplicationContext(), Team_Detail_Activity.class);
+                    intent.putExtra("name",item.getName());
+                    intent.putExtra("objId",item.getObjId());
+                    Log.d("teet", item.getObjId());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
                 }
             });
         }
@@ -133,10 +145,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public class team extends RecyclerView.ViewHolder{
         CardView cardview;
         TextView member;
+        TextView text;
         public team(View itemView) {
             super(itemView);
             member=(TextView)itemView.findViewById(R.id.member);
             cardview=(CardView)itemView.findViewById(R.id.cardview);
+            text=(TextView)itemView.findViewById(R.id.text);
         }
     }
 

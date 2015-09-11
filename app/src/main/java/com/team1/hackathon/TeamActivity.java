@@ -4,6 +4,7 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -33,6 +35,7 @@ public class TeamActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     ArrayList<Team_item> items=new ArrayList<>();
     String name=new String();
+    SwipeRefreshLayout swipelayout;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,34 +46,43 @@ public class TeamActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerview=(RecyclerView)findViewById(R.id.recyclerview);
+        swipelayout=(SwipeRefreshLayout)findViewById(R.id.swipelayout);
+        swipelayout.setRefreshing(true);
+        makinglist();
+        swipelayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
 
+                makinglist();
+            }
+        });
 
+    }
+
+    private void makinglist() {
+        items.clear();
         ParseQuery<ParseObject> query=ParseQuery.getQuery("Team");
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> list, ParseException e) {
-                for (ParseObject p : list) {
-                    final String[] n = {"\n"};
-                    ParseRelation<ParseUser> relation = p.getRelation("member");
-                    ParseQuery<ParseUser> q = relation.getQuery();
-                    q.findInBackground(new FindCallback<ParseUser>() {
-                        @Override
-                        public void done(List<ParseUser> list, ParseException e) {
-                            for (ParseUser p1 : list)
-                                n[0] = n[0] +p1.getString("name")+"\n";
-                            name=new String(n[0]);
-                        }
-                    });
-
-                    Team_item item = new Team_item(name);
-                    items.add(item);
+                for (final ParseObject p : list) {
+                    boolean ismade=p.getBoolean("ismade");
+                    ParseUser parseUser=p.getParseUser("admin_member");
+                    try {
+                        Log.d("teet", p.getObjectId());
+                        parseUser.fetchIfNeeded();
+                        Team_item item = new Team_item(parseUser.getUsername(),p.getObjectId(),ismade);
+                        items.add(item);
+                    } catch (ParseException e1) {
+                        e1.printStackTrace();
+                    }
                 }
-                Log.d("ddddddd",items.get(0).getName());
                 recyclerview.setAdapter(new RecyclerAdapter(getApplicationContext(), items, R.layout.item_team, 0));
             }
         });
         layoutManager=new LinearLayoutManager(getApplicationContext());
         recyclerview.setLayoutManager(layoutManager);
         recyclerview.setHasFixedSize(true);
+        swipelayout.setRefreshing(false);
     }
 }

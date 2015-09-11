@@ -63,7 +63,7 @@ public class MentoringActivity extends AppCompatActivity {
                 cur_mon = Calendar.getInstance().get(Calendar.MONTH);
                 cur_day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
-                Dialog date_picker = new DatePickerDialog(getApplicationContext(), new DatePickerDialog.OnDateSetListener() {
+                Dialog date_picker = new DatePickerDialog(MentoringActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         text_date.setText("" + cur_year + "." + cur_mon + "." + cur_day);
